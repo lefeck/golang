@@ -37,3 +37,39 @@ func main() {
 	fmt.Println(b)
 }
 ```
+
+3. 无重复字符的最长子串
+
+题目描述
+给定一个字符串，请你找出其中不含有重复字符的最长子串的长度。
+
+示例1：
+输入: "abcabcbb"
+输出: 3 
+解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+```
+func statistics(s string) int {
+	i := 0
+	max := 0
+	//rune被用来区分字符值和整数值
+	a := []rune(s)
+	//遍历整个字符串
+	for m, c := range a {
+		fmt.Println(m,c)
+		for n := i; n < m; n++ {
+			if a[n] == c {
+				i = n + 1
+			}
+		}
+		if m - i + 1 > max {
+			max = m - i + 1
+		}
+	}
+	return max
+}
+
+func main () {
+	f := statistics("fjlskjflsf")
+	fmt.Println(f)
+}
+```
