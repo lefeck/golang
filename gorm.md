@@ -26,7 +26,7 @@ go get -u github.com/jinzhu/gorm
 import _ "github.com/jinzhu/gorm/dialects/mysql"
 // import _ "github.com/jinzhu/gorm/dialects/postgres"
 // import _ "github.com/jinzhu/gorm/dialects/sqlite"
-// import _ "github.com/jinzhu/gorm/dialects/mssql"
+// import _ "github.com/jinzhu/gorm/dialects/mysql"
 ```
 
 #### 连接MySQL
@@ -103,7 +103,7 @@ func main() {
 在使用GORM前手动创建数据库`db1`：
 
 ```
-CREATE DATABASE db1;
+CREATE DATABASE user;
 ```
 
 #### 2.2 GORM操作MySQL
