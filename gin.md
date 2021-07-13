@@ -92,13 +92,13 @@ Context是gin框架中封装的一个结构体，这是gin框架中最重要，�
 
 路由系统支持任意方式的请求，如下的方法用来提供对应方法来接收请求：
 
-> func (group *RouterGroup) DELETE(relativePath string, handlers ...HandlerFunc) IRoutes
-> func (group *RouterGroup) GET(relativePath string, handlers ...HandlerFunc) IRoutes
-> func (group *RouterGroup) HEAD(relativePath string, handlers ...HandlerFunc) IRoutes
-> func (group *RouterGroup) OPTIONS(relativePath string, handlers ...HandlerFunc) IRoutes
-> func (group *RouterGroup) PATCH(relativePath string, handlers ...HandlerFunc) IRoutes
-> func (group *RouterGroup) POST(relativePath string, handlers ...HandlerFunc) IRoutes
-> func (group *RouterGroup) PUT(relativePath string, handlers ...HandlerFunc) IRoutes
+> func (group *RouterGroup) DELETE(relativePath string, handlers ...HandlerFunc) IRoutes. 
+> func (group *RouterGroup) GET(relativePath string, handlers ...HandlerFunc) IRoutes.  
+> func (group *RouterGroup) HEAD(relativePath string, handlers ...HandlerFunc) IRoutes.  
+> func (group *RouterGroup) OPTIONS(relativePath string, handlers ...HandlerFunc) IRoutes.  
+> func (group *RouterGroup) PATCH(relativePath string, handlers ...HandlerFunc) IRoutes.  
+> func (group *RouterGroup) POST(relativePath string, handlers ...HandlerFunc) IRoutes.  
+> func (group *RouterGroup) PUT(relativePath string, handlers ...HandlerFunc) IRoutes.  
 
 
 
