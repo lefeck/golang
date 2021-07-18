@@ -1,2 +1,3 @@
 # go
-go dev
+
+go study notes
