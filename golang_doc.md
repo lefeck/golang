@@ -1444,6 +1444,23 @@ citySlice = append(citySlice, a...)
 fmt.Println(citySlice) //[北京 上海 广州 深圳 成都 重庆]
 ```
 
+下面的代码是有问题的，请说明原因。
+
+```
+func main()  {
+  var p []interface{}
+
+  b := []string{"hello","world"}
+
+  o := append(p,b...)
+  fmt.Println(o)
+}
+```
+**原因:** 
+​ string或int类型的切片,不能append到interface类型的切片, 只允许interface类型的切片,append到interface类型的切片。即 同类型的切片才能append到同类型的切片中。
+
+
+
 ### 切片的扩容策略
 
 可以通过查看$GOROOT/src/runtime/slice.go源码，其中扩容相关代码如下：
