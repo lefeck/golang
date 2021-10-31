@@ -6,7 +6,7 @@
 
 #### 标识符
 
-在编程语言中标识符就是程序员定义的具有特殊意义的词，比如变量名、常量名、函数名等等。 Go语言中标识符由字母数字和_(下划线）组成，并且只能以字母和_开头。 举几个例子：abc, _, _123, a123。
+在编程语言中标识符就是程序员定义的具有特殊意义的词，比如变量名、常量名、函数名等等。 Go语言中标识符由字母数字和\_(下划线）组成，并且只能以字母和_开头。 举几个例子：abc, _, _123, a123。
 
 #### 关键字
 
@@ -14,11 +14,13 @@
 
 Go语言中有25个关键字：
 
-    break        default      func         interface    select
-    case         defer        go           map          struct
-    chan         else         goto         package      switch
-    const        fallthrough  if           range        type
-    continue     for          import       return       var
+```go
+break        default      func         interface    select
+case         defer        go           map          struct
+chan         else         goto         package      switch
+const        fallthrough  if           range        type
+continue     for          import       return       var
+```
 
 此外，Go语言中还有37个保留字。
 
@@ -91,14 +93,14 @@ var 变量名 类型 = 表达式
 举个例子：
 
 ```go
-var name string = "Q1mi"
+var name string = "tom"
 var age int = 18
 ```
 
 或者一次初始化多个变量
 
 ```go
-var name, age = "Q1mi", 20
+var name, age = "tom", 20
 ```
 
 ##### 类型推导
@@ -106,7 +108,7 @@ var name, age = "Q1mi", 20
 有时候我们会将变量的类型省略，这个时候编译器会根据等号右边的值来推导变量的类型完成初始化。
 
 ```go
-var name = "Q1mi"
+var name = "tom"
 var age = 18
 ```
 
@@ -146,7 +148,7 @@ func main() {
 
 ```go
 func foo() (int, string) {
-	return 10, "Q1mi"
+	return 10, "tom"
 }
 func main() {
 	x, _ := foo()
@@ -295,15 +297,21 @@ uintptr  |  无符号整型，用于存放一个指针
 
 注意事项: 获取对象的长度的内建len()函数返回的长度可以根据不同平台的字节长度进行变化。实际使用中,切片或map的元素数量等都可以用int来表示。在涉及到二进制传输、读写文件的结构描述时，为了保持文件的结构不会受到不同编译目标平台字节长度的影响，不要使用int和 uint。
 
-### 数字字面量语法（Number literals syntax）
+### 数字字面量语法
 Go1.13版本之后引入了数字字面量语法，这样便于开发者以二进制、八进制或十六进制浮点数的格式定义数字，例如：
 
-v := 0b00101101， 代表二进制的 101101，相当于十进制的 45。 v := 0o377，代表八进制的 377，相当于十进制的 255。 v := 0x1p-2，代表十六进制的 1 除以 2²，也就是 0.25。 而且还允许我们用 _ 来分隔数字，比如说：
+> v := 0b00101101， 代表二进制的 101101，相当于十进制的 45。
 
-v := 123_456 等于 123456。
+> v := 0o377，代表八进制的 377，相当于十进制的 255。 
+
+> v := 0x1p-2，代表十六进制的 1 除以 2²，也就是 0.25。 
+
+而且还允许我们用 _ 来分隔数字，比如说：
+
+> v := 123_456 等于 123456。
 
 我们可以借助fmt函数来将一个整数以不同进制形式展示。
-```
+```go
 package main
  
 import "fmt"
@@ -325,10 +333,14 @@ func main(){
 }
 ```
 ### 浮点型
-Go语言支持两种浮点型数：float32和float64。这两种浮点型数据格式遵循IEEE 754标准： float32 的浮点数的最大范围约为 3.4e38，可以使用常量定义：math.MaxFloat32。 float64 的浮点数的最大范围约为 1.8e308，可以使用一个常量定义：math.MaxFloat64。
+Go语言支持两种浮点型数：float32和float64。这两种浮点型数据格式遵循IEEE 754标准：  
+
+> float32 的浮点数的最大范围约为 3.4e38，可以使用常量定义：math.MaxFloat32。 
+
+> float64 的浮点数的最大范围约为 1.8e308，可以使用一个常量定义：math.MaxFloat64。
 
 打印浮点数时，可以使用fmt包配合动词%f，代码如下：
-```
+```go
 package main
 import (
         "fmt"
@@ -342,7 +354,7 @@ func main() {
 ### 复数
 
 complex64和complex128
-```
+```go
 var c1 complex64
 c1 = 1 + 2i
 var c2 complex128
@@ -363,23 +375,26 @@ Go语言中以bool类型进行声明布尔型数据，布尔型数据只有true�
 
 ### 字符串
 Go语言中的字符串以原生数据类型出现，使用字符串就像使用其他原生数据类型（int、bool、float32、float64 等）一样。 Go 语言里的字符串的内部实现使用UTF-8编码。 字符串的值为双引号(")中的内容，可以在Go语言的源码中直接添加非ASCII码字符，例如：
-```
+```go
 s1 := "hello"
 s2 := "你好"
 ```
 ### 字符串转义符
 Go 语言的字符串常见转义符包含回车、换行、单双引号、制表符等，如下表所示。
 
-转义符	| 	含义
-	 ---|---
-\r		| 	回车符（返回行首）
-\n		| 	换行符（直接跳到下一行的同列位置）
-\t		| 	制表符
-\'		| 	单引号
-\"		| 	双引号
-\\		| 	反斜杠
+| 转义符 | 含义                             |
+| ------ | -------------------------------- |
+| \r     | 回车符（返回行首）               |
+| \n     | 换行符（直接跳到下一行的同列位置 |
+| \t     | 制表符                           |
+| \\'    | 单引号                           |
+| \\"    | 双引号                           |
+| \\     | 反斜杠                           |
+
+
 举个例子，我们要打印一个Windows平台下的一个文件路径：
-```
+
+```go
 package main
 import (
     "fmt"
@@ -390,10 +405,10 @@ func main() {
 ```
 ### 多行字符串
 Go语言中要定义一个多行字符串时，就必须使用反引号字符：
-```
-s1 := `第一行
-第二行
-第三行
+```go
+s1 := `hello
+world
+everyone
 `
 fmt.Println(s1)
 ```
@@ -410,19 +425,21 @@ strings.HasPrefix,strings.HasSuffix			|  前缀/后缀判断
 strings.Index(),strings.LastIndex()			|  子串出现的位置
 strings.Join(a[]string, sep string)	  	    |  Join 操作
 ### byte和rune类型
-组成每个字符串的元素叫做“字符”，可以通过遍历或者单个获取字符串元素获得字符。 字符用单引号（’）包裹起来，如：
-```
-var a := '中'
-var b := 'x'
-```
+
+组成每个字符串的元素叫做“字符”，可以通过遍历或者单个获取字符串元素获得字符。 字符用单引号（'）包裹起来，如:   
+
+> var a := '中'
+> var b := 'x'
+
 Go 语言的字符有以下两种：
 
-uint8类型，或者叫 byte 型，代表了ASCII码的一个字符。
-rune类型，代表一个 UTF-8字符。
+1. uint8类型，或者叫 byte 型，代表了ASCII码的一个字符。
+2. rune类型，代表一个 UTF-8字符。
+
 当需要处理中文、日文或者其他复合字符时，则需要用到rune类型。rune类型实际是一个int32。
 
 Go 使用了特殊的 rune 类型来处理 Unicode，让基于 Unicode 的文本处理更为方便，也可以使用 byte 型进行默认字符串处理，性能和扩展性都有照顾。
-```
+```go
 // 遍历字符串
 func traversalString() {
 	s := "hello沙河"
@@ -435,8 +452,8 @@ func traversalString() {
 	}
 	fmt.Println()
 }
-输出：
 
+输出结果：
 104(h) 101(e) 108(l) 108(l) 111(o) 230(æ) 178(²) 153() 230(æ) 178(²) 179(³) 
 104(h) 101(e) 108(l) 108(l) 111(o) 27801(沙) 27827(河) 
 ```
@@ -446,7 +463,7 @@ func traversalString() {
 
 ### 修改字符串
 要修改字符串，需要先将其转换成[]rune或[]byte，完成后再转换为string。无论哪种转换，都会重新分配内存，并复制字节数组。
-```
+```go
 func changeString() {
 	s1 := "big"
 	// 强制类型转换
@@ -466,10 +483,12 @@ Go语言中只有强制类型转换，没有隐式类型转换。该语法只能
 强制类型转换的基本语法如下：
 > 
 T(表达式)
+
 其中，T表示要转换的类型。表达式包括变量、复杂算子和函数返回值等.
 
 比如计算直角三角形的斜边长时使用math包的Sqrt()函数，该函数接收的是float64类型的参数，而变量a和b都是int类型的，这个时候就需要将a和b强制类型转换为float64类型。
-```
+
+```go
 func sqrtDemo() {
 	var a, b = 3, 4
 	var c int
@@ -480,8 +499,8 @@ func sqrtDemo() {
 ```
 ### 练习题
 
-编写代码分别定义一个整型、浮点型、布尔型、字符串型变量，使用fmt.Printf()搭配%T分别打印出上述变量的值和类型。
-编写代码统计出字符串"hello沙河小王子"中汉字的数量。
+1. 编写代码分别定义一个整型、浮点型、布尔型、字符串型变量，使用fmt.Printf()搭配%T分别打印出上述变量的值和类型。
+2. 编写代码统计出字符串"hello沙河小王子"中汉字的数量。
 
 
 
@@ -497,7 +516,7 @@ Go语言中最常用的流程控制有if和for，而switch和goto主要是为了
 
 Go语言中if条件判断的格式如下：
 
-```
+```go
 if 表达式1 {
     分支1
 } else if 表达式2 {
@@ -530,7 +549,7 @@ func ifDemo1() {
 
 if条件判断还有一种特殊的写法，可以在 if 表达式之前添加一个执行语句，再根据变量值进行判断，举个例子：
 
-```
+```go
 func ifDemo2() {
 	if score := 65; score >= 90 {
 		fmt.Println("A")
@@ -550,7 +569,7 @@ Go 语言中的所有循环类型均可以使用for关键字来完成。
 
 for循环的基本格式如下：
 
-```
+```go
 for 初始语句;条件表达式;结束语句{
     循环体语句
 }
@@ -558,7 +577,7 @@ for 初始语句;条件表达式;结束语句{
 
 条件表达式返回true时循环体不停地进行循环，直到条件表达式返回false时自动退出循环。
 
-```
+```go
 func forDemo() {
 	for i := 0; i < 10; i++ {
 		fmt.Println(i)
@@ -568,7 +587,7 @@ func forDemo() {
 
 for循环的初始语句可以被忽略，但是初始语句后的分号必须要写，例如：
 
-```
+```go
 func forDemo2() {
 	i := 0
 	for ; i < 10; i++ {
@@ -579,7 +598,7 @@ func forDemo2() {
 
 for循环的初始语句和结束语句都可以省略，例如：
 
-```
+```go
 func forDemo3() {
 	i := 0
 	for i < 10 {
@@ -593,7 +612,7 @@ func forDemo3() {
 
 ## 无限循环
 
-```
+```go
 for {
     循环体语句
 }
@@ -613,20 +632,20 @@ Go语言中可以使用for range遍历数组、切片、字符串、map 及通�
 
 使用switch语句可方便地对大量的值进行条件判断。
 
-```
-func switchDemo1() {
-	finger := 3
-	switch finger {
-	case 1:
-		fmt.Println("大拇指")
-	case 2:
-		fmt.Println("食指")
-	case 3:
-		fmt.Println("中指")
-	case 4:
-		fmt.Println("无名指")
-	case 5:
-		fmt.Println("小拇指")
+```go
+func switchDemo() {
+	letter := C
+	switch letter {
+	case A:
+		fmt.Println("A")
+	case B:
+		fmt.Println("B")
+	case C:
+		fmt.Println("C")
+	case D:
+		fmt.Println("D")
+	case E:
+		fmt.Println("E")
 	default:
 		fmt.Println("无效的输入！")
 	}
@@ -637,8 +656,8 @@ Go语言规定每个switch只能有一个default分支。
 
 一个分支可以有多个值，多个case值中间使用英文逗号分隔。
 
-```
-func testSwitch3() {
+```go
+func testSwitch() {
 	switch n := 7; n {
 	case 1, 3, 5, 7, 9:
 		fmt.Println("奇数")
@@ -652,7 +671,7 @@ func testSwitch3() {
 
 分支还可以使用表达式，这时候switch语句后面不需要再跟判断变量。例如：
 
-```
+```go
 func switchDemo4() {
 	age := 30
 	switch {
@@ -670,7 +689,7 @@ func switchDemo4() {
 
 fallthrough语法可以执行满足条件的case的下一个case，是为了兼容C语言中的case设计的。
 
-```
+```go
 func switchDemo5() {
 	s := "a"
 	switch {
@@ -700,7 +719,7 @@ b
 
 goto语句通过标签进行代码间的无条件跳转。goto语句可以在快速跳出循环、避免重复退出上有一定的帮助。Go语言中使用goto语句能简化一些代码的实现过程。 例如双层嵌套的for循环要退出时：
 
-```
+```go
 func gotoDemo1() {
 	var breakFlag bool
 	for i := 0; i < 10; i++ {
@@ -722,7 +741,7 @@ func gotoDemo1() {
 
 使用goto语句能简化代码：
 
-```
+```go
 func gotoDemo2() {
 	for i := 0; i < 10; i++ {
 		for j := 0; j < 10; j++ {
@@ -748,7 +767,7 @@ break语句可以结束for、switch和select的代码块。
 
 break语句还可以在语句后面添加标签，表示退出某个标签对应的代码块，标签要求必须定义在对应的for、switch和 select的代码块上。 举个例子：
 
-```
+```go
 func breakDemo1() {
 BREAKDEMO1:
 	for i := 0; i < 10; i++ {
@@ -771,7 +790,7 @@ continue语句可以结束当前循环，开始下一次的循环迭代过程，
 
 在 continue语句后添加标签时，表示开始标签对应的循环。例如：
 
-```
+```go
 func continueDemo() {
 forloop1:
 	for i := 0; i < 5; i++ {
@@ -790,7 +809,7 @@ forloop1:
 
 编写代码打印9*9乘法表。
 
-```
+```go
 func main() {
 	//顺序打印99乘法表	
 for i := 1; i < 10; i++ {
@@ -824,7 +843,7 @@ for i := 9; i >= 1; i-- {
 
 #### 递归实现
 
-```
+```go
 package main
 
 import "fmt"
@@ -857,7 +876,7 @@ func fibonacci(n int) (res int) {
 
 ### 递归实现改进
 
-```
+```go
 package main
 
 import "fmt"
@@ -896,7 +915,7 @@ func fibonacci(n int) (res uint64) {
 
 ### 数组递归实现
 
-```
+```go
 package main
 
 import "fmt"
@@ -920,7 +939,7 @@ func fibarray(term int) []int {
 
 ### 闭包实现
 
-```
+```go
 package main
 
 import "fmt"
@@ -958,17 +977,19 @@ func fibonacci() func() int {
 
 ## Array(数组)
 
-数组是同一种数据类型元素的集合。 在Go语言中，数组从声明时就确定，使用时可以修改数组成员，但是数组大小不可变化。 基本语法：
+数组是同一种数据类型元素的集合。 在Go语言中，数组从声明时就确定，使用时可以修改数组成员，但是数组大小不可变化。 
 
-> // 定义一个长度为3元素类型为int的数组a
-> var a [3]int
+### 数组定义： 
 
-### 数组定义：
+> var 数组变量名 [元素数量]T
 
-var 数组变量名 [元素数量]T
-比如：var a [5]int， 数组的长度必须是常量，并且长度是数组类型的一部分。一旦定义，长度不能变。 [5]int和[10]int是不同的类型。
+基本语法：
 
-```
+> var a [3]int               // 定义一个长度为3元素类型为int的数组a
+
+数组的长度必须是常量，并且长度是数组类型的一部分。一旦定义，长度不能变。 [5]int和[10]int是不同的类型。 
+
+```go
 var a [3]int
 var b [4]int
 a = b //不可以这样做，因为此时a和b是不同的类型
@@ -984,7 +1005,7 @@ a = b //不可以这样做，因为此时a和b是不同的类型
 
 初始化数组时可以使用初始化列表来设置数组元素的值。
 
-```
+```go
 func main() {
 	var testArray [3]int                        //数组会初始化为int类型的零值
 	var numArray = [3]int{1, 2}                 //使用指定的初始值完成初始化
@@ -999,7 +1020,7 @@ func main() {
 
 按照上面的方法每次都要确保提供的初始值和数组长度一致，一般情况下我们可以让编译器根据初始值的个数自行推断数组的长度，例如：
 
-```
+```go
 func main() {
 	var testArray [3]int
 	var numArray = [...]int{1, 2}
@@ -1016,7 +1037,7 @@ func main() {
 
 我们还可以使用指定索引值的方式来初始化数组，例如:
 
-```
+```go
 func main() {
 	a := [...]int{1: 1, 3: 5}
 	fmt.Println(a)                  // [0 1 0 5]
@@ -1028,7 +1049,7 @@ func main() {
 
 遍历数组a有以下两种方法：
 
-```
+```go
 func main() {
 	var a = [...]string{"北京", "上海", "深圳"}
 	// 方法1：for循环遍历
@@ -1049,7 +1070,7 @@ Go语言是支持多维数组的，我们这里以二维数组为例（数组中
 
 #### 二维数组的定义
 
-```
+```go
 func main() {
 	a := [3][2]string{   //有3个元素，每一个元素都是长度为2的string数组
 		{"北京", "上海"},
@@ -1063,7 +1084,7 @@ func main() {
 
 #### 二维数组的遍历
 
-```
+```go
 func main() {
 	a := [3][2]string{
 		{"北京", "上海"},
@@ -1081,7 +1102,7 @@ func main() {
 
 输出：
 
-```
+```go
 北京	上海	
 广州	深圳	
 成都	重庆
@@ -1089,7 +1110,7 @@ func main() {
 
 注意： 多维数组只有第一层可以使用...来让编译器推导数组长度。例如：
 
-```
+```go
 //支持的写法
 a := [...][2]string{
 	{"北京", "上海"},
@@ -1109,7 +1130,7 @@ b := [3][...]string{
 
 数组是值类型，赋值和传参会复制整个数组。因此改变副本的值，不会改变本身的值。
 
-```
+```go
 func modifyArray(x [3]int) {
 	x[0] = 100
 }
@@ -1133,8 +1154,8 @@ func main() {
 
 注意：
 
-数组支持 “==“、”!=” 操作符，因为内存总是被初始化过的。
-[n]*T表示指针数组，*[n]T表示数组指针 。
+> 数组支持 “==“、”!=” 操作符，因为内存总是被初始化过的。
+> [n]\*T表示指针数组，*[n]T表示数组指针 。
 
 ### 练习题
 
@@ -1148,7 +1169,7 @@ func main() {
 
 因为数组的长度是固定的并且数组长度属于类型的一部分，所以数组有很多的局限性。 例如：
 
-```
+```go
 func arraySum(x [3]int) int{
     sum := 0
     for _, v := range x{
@@ -1183,7 +1204,7 @@ func arraySum(x [3]int) int{
 
 举个例子：
 
-```
+```go
 func main() {
 	// 声明切片类型
 	var a []string              //声明一个字符串切片，没有分配内存，==nil
@@ -1204,7 +1225,7 @@ func main() {
 
 ### **`nil`切片**
 
-```
+```go
 var s []int
 fmt.Println(s == nil)   // 输出 true
 fmt.Println(len(s),cap(s))   // 输出：0 0
@@ -1216,7 +1237,7 @@ fmt.Println(len(s),cap(s))   // 输出：0 0
 
 如何声明空切片？有两种方式：
 
-```
+```go
 // 1、使用 make 创建空的整型切片
 s := make([]int, 0)
 
@@ -1238,7 +1259,7 @@ fmt.Println(len(s),cap(s))   // 输出：0 0
 
 由于切片的底层就是一个数组，所以我们可以基于数组定义切片。
 
-```
+```go
 func main() {
 	// 基于数组定义切片
 	a := [5]int{55, 56, 57, 58, 59}
@@ -1251,7 +1272,7 @@ func main() {
 
 还支持如下方式：
 
-```
+```go
 c := a[1:] //[56 57 58 59] /* 打印切片从索引1(包含)到最后一个索引结束*/
 d := a[:4] //[55 56 57 58] /*索引是从0(包含)开始到索引4(不包含)*/
 e := a[:]  //[55 56 57 58 59] /*所有索引的结果*/
@@ -1261,7 +1282,7 @@ e := a[:]  //[55 56 57 58 59] /*所有索引的结果*/
 
 除了基于数组得到切片，我们还可以通过切片来得到切片。
 
-```
+```go
 func main() {
 	//切片再切片
 	a := [...]string{"北京", "上海", "广州", "深圳", "成都", "重庆"}
@@ -1276,7 +1297,7 @@ func main() {
 
 输出：
 
-```
+```go
 a:[北京 上海 广州 深圳 成都 重庆] type:[6]string len:6  cap:6
 b:[上海 广州] type:[]string len:2  cap:5
 c:[广州 深圳 成都 重庆] type:[]string len:4  cap:4
@@ -1299,7 +1320,7 @@ c:[广州 深圳 成都 重庆] type:[]string len:4  cap:4
 ​	cap: 切片的容量
 举个例子：
 
-```
+```go
 func main() {
 	a := make([]int, 2, 10)
 	fmt.Println(a)      //[0 0]
@@ -1326,7 +1347,7 @@ slice_01切片s2 := a[3:6]，相应示意图如下：slice_02
 切片不能直接比较
 		切片之间是不能比较的，我们不能使用==操作符来判断两个切片是否含有全部相等元素。 切片唯一合法的比较操作是和nil比较。 一个nil值的切片并没有底层数组，一个nil值的切片的长度和容量都是0。但是我们不能说一个长度和容量都是0的切片一定是nil，例如下面的示例：
 
-```
+```go
 var s1 []int         //len(s1)=0;cap(s1)=0;s1==nil
 s2 := []int{}        //len(s2)=0;cap(s2)=0;s2!=nil
 s3 := make([]int, 0) //len(s3)=0;cap(s3)=0;s3!=nil
@@ -1334,11 +1355,11 @@ s3 := make([]int, 0) //len(s3)=0;cap(s3)=0;s3!=nil
 
 所以要判断一个切片是否是空的，要是用len(s) == 0来判断，不应该使用s == nil来判断。
 
-### 切片的赋值拷贝
+### 切片赋值拷贝
 
 下面的代码中演示了拷贝前后两个变量共享底层数组，对一个切片的修改会影响另一个切片的内容，这点需要特别注意。
 
-```
+```go
 func main() {
 	s1 := make([]int, 3) //[0 0 0]
 	s2 := s1             //将s1直接赋值给s2，s1和s2共用一个底层数组
@@ -1352,7 +1373,7 @@ func main() {
 
 切片的遍历方式和数组是一致的，支持索引遍历和for range遍历。
 
-```
+```go
 func main() {
 	s := []int{1, 3, 5}
 
@@ -1370,7 +1391,7 @@ func main() {
 
 Go语言的内建函数append`()`可以为切片动态添加元素。 append() 的第二个参数不能直接使用 slice，需使用 … 操作符，将一个切片追加到另一个切片上：append(s1,s2…)。或者直接跟上元素，形如：append(s1,1,2,3)。。
 
-```
+```go
 func main(){
 	var s []int
 	s = append(s, 1)        // [1]
@@ -1382,14 +1403,14 @@ func main(){
 
 注意：通过var声明的零值切片可以在append()函数直接使用，无需初始化。
 
-```
+```go
 var s []int
 s = append(s, 1, 2, 3)
 ```
 
 没有必要像下面的代码一样初始化一个切片再传入append()函数使用，
 
-```
+```go
 s := []int{}  // 没有必要初始化
 s = append(s, 1, 2, 3)
 
@@ -1414,7 +1435,7 @@ func main() {
 
 输出：
 
-```
+```go
 [0]  len:1  cap:1  ptr:0xc0000a8000
 [0 1]  len:2  cap:2  ptr:0xc0000a8040
 [0 1 2]  len:3  cap:4  ptr:0xc0000b2020
@@ -1432,7 +1453,7 @@ append()函数将元素追加到切片的最后并返回该切片。
 切片numSlice的容量按照1，2，4，8，16这样的规则自动进行扩容，每次扩容后都是扩容前的2倍。
 append()函数还支持一次性追加多个元素。 例如：
 
-```
+```go
 var citySlice []string
 // 追加一个元素
 citySlice = append(citySlice, "北京")
@@ -1443,23 +1464,6 @@ a := []string{"成都", "重庆"}
 citySlice = append(citySlice, a...)
 fmt.Println(citySlice) //[北京 上海 广州 深圳 成都 重庆]
 ```
-
-下面的代码是有问题的，请说明原因。
-
-```
-func main()  {
-  var p []interface{}
-
-  b := []string{"hello","world"}
-
-  o := append(p,b...)
-  fmt.Println(o)
-}
-```
-**原因:** 
-​ string或int类型的切片,不能append到interface类型的切片, 只允许interface类型的切片,append到interface类型的切片。即 同类型的切片才能append到同类型的切片中。
-
-
 
 ### 切片的扩容策略
 
@@ -1502,7 +1506,7 @@ if cap > doublecap {
 
 首先我们来看一个问题：
 
-```
+```go
 func main() {
 	a := []int{1, 2, 3, 4, 5}
 	b := a
@@ -1514,9 +1518,7 @@ func main() {
 }
 ```
 
-**结论:**
-
-​		**由于切片是引用类型，所以a和b其实都指向了同一块内存地址。修改b的同时a的值也会发生变化。**
+**结论: 由于切片是引用类型，所以a和b其实都指向了同一块内存地址。修改b的同时a的值也会发生变化。**
 
 
 
@@ -1526,11 +1528,12 @@ Go语言内建的copy()函数可以迅速地将一个切片的数据复制到另
 
 其中：
 
-​	srcSlice: 数据源切片
-​	destSlice: 目标切片
-举个例子：
+* srcSlice: 数据源切片
+* destSlice: 目标切片
 
-```
+举例：
+
+```go
 func main() {
 	// copy()复制切片
 	a := []int{1, 2, 3, 4, 5}
@@ -1567,7 +1570,7 @@ func main() {
 
 1.请写出下面代码的输出结果。
 
-```
+```go
 func main() {
 	var a = make([]string, 5, 10)
 	fmt.Println(a)
@@ -1586,9 +1589,7 @@ func main() {
 
 Go语言中提供的映射关系容器为map，其内部使用散列表（hash）实现。
 
-### map
-
-> map是一种无序的基于key-value的数据结构，Go语言中的map是引用类型，必须初始化才能使用。
+map是一种无序的基于key-value的数据结构，Go语言中的map是引用类型，必须初始化才能使用。
 
 ### map定义
 
@@ -1596,10 +1597,10 @@ Go语言中 map的定义语法如下：
 
 > map[KeyType]ValueType
 
-其中，
+其中
 
-- KeyType:表示键的类型。
-- ValueType:表示键对应的值的类型。
+- KeyType: 表示键的类型。 
+- ValueType: 表示键对应的值的类型。
 
 
 map类型的变量默认初始值为nil，需要使用make()函数来分配内存。语法为：
@@ -1612,7 +1613,7 @@ map类型的变量默认初始值为nil，需要使用make()函数来分配内�
 
 map中的数据都是成对出现的，map的基本使用示例代码如下：
 
-```
+```go
 func main() {
     var scoreMap map[string]int
     fmt.Println(scoreMap == nil)  //true 还没初始化
@@ -1640,7 +1641,7 @@ type of a:map[string]int
 
 map也支持在声明的时候填充元素，例如：
 
-```
+```go
 func main() {
 	userInfo := map[string]string{
 		"username": "沙河小王子",
@@ -1652,14 +1653,13 @@ func main() {
 
 ### 判断某个键是否存在
 
-Go语言中有个判断map中键是否存在的特殊写法，如果map函数
-返回的是bool类型，我们通常用ok接受它。格式如下:
+Go语言中有个判断map中键是否存在的特殊写法，如果map函数返回的是bool类型，我们通常用ok接受它。格式如下:
 
 > value, ok := map[key]
 
 举个例子：
 
-```
+```go
 func main() {
 	scoreMap := make(map[string]int)
 	scoreMap["张三"] = 90
@@ -1678,7 +1678,7 @@ func main() {
 
 Go语言中使用for range遍历map。
 
-```
+```go
 func main() {
 	scoreMap := make(map[string]int)
 	scoreMap["张三"] = 90
@@ -1692,7 +1692,7 @@ func main() {
 
 只遍历key，写法：
 
-```
+```go
 func main() {
 	scoreMap := make(map[string]int)
 	scoreMap["张三"] = 90
@@ -1716,9 +1716,10 @@ func main() {
 
 - map:表示要删除键值对的map
 - key:表示要删除的键值对的键
-  示例代码如下：
 
-```
+示例代码如下：
+
+```go
 func main(){
 	scoreMap := make(map[string]int)
 	scoreMap["张三"] = 90
@@ -1734,7 +1735,7 @@ func main(){
 
 ### 按照指定顺序遍历map
 
-```
+```go
 func main() {
 	rand.Seed(time.Now().UnixNano()) //初始化随机数种子
 
@@ -1763,7 +1764,7 @@ func main() {
 
 下面的代码演示了切片中的元素为map类型时的操作：
 
-```
+```go
 func main() {
 	//元素类型为map的切片
 	var mapSlice = make([]map[string]string, 3)
@@ -1775,7 +1776,7 @@ func main() {
 	mapSlice[0] = make(map[string]string, 10)
 	mapSlice[0]["name"] = "小王子"
 	mapSlice[0]["password"] = "123456"
-	mapSlice[0]["address"] = "沙河"
+	mapSlice[0]["address"] = "hangkong"
 	for index, value := range mapSlice {
 		fmt.Printf("index:%d value:%v\n", index, value)
 	}
@@ -1816,14 +1817,12 @@ func main() {
 	s := []int{1, 2}
 	s = append(s, 3)
 	fmt.Printf("%+v\n", s)
-	m["q1mi"] = s
+	m["tom"] = s
 	s = append(s[:1], s[2:]...)
 	fmt.Printf("%+v\n", s)
-	fmt.Printf("%+v\n", m["q1mi"])
+	fmt.Printf("%+v\n", m["tom"])
 }
 ```
-
-
 
 
 
@@ -1840,7 +1839,7 @@ Go语言中支持函数、匿名函数和闭包，并且函数在Go语言中属�
 Go语言中定义函数使用func关键字，具体格式如下：
 
 > func 函数名(参数)(返回值){
-> 函数体
+> 		函数体
 > }
 
 其中：
@@ -2174,7 +2173,7 @@ func do(s string) (func(int, int) int, error) {
 函数当然还可以作为返回值，函数内部没办法声明带名字的函数，只能定义匿名函数。匿名函数就是没有函数名的函数，匿名函数的定义格式如下：
 
 > func(参数)(返回值){
-> 函数体
+> 		函数体
 > }
 
 匿名函数因为没有函数名，所以没办法像普通函数那样调用，所以匿名函数需要保存到某个变量或者作为立即执行函数:
@@ -5838,7 +5837,101 @@ Process finished with exit code 0
 
 
 
+### sync.Map
 
+Go语言中的 map 在并发情况下，只读是线程安全的，同时读写是线程不安全的。
+
+非安全环境下，并发map测试代码如下：
+
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+var TestMap map[string]string
+
+func init() {
+	TestMap = make(map[string]string, 1)
+}
+
+func main() {
+	for i := 0; i < 1000; i++ {
+		go Write("aaa")
+		go Read("aaa")
+	}
+	time.Sleep(5 * time.Second)
+}
+
+func Read(key string) {
+	fmt.Println(TestMap[key])
+}
+
+func Write(key string) {
+	TestMap[key] = key
+}
+```
+
+运行代码会报错，输出如下：
+
+> fatal error: concurrent map read and map write
+
+错误信息显示，并发的 map 读和 map 写，也就是说使用了两个并发函数不断地对 map 进行读和写而发生了竞态问题，map 内部会对这种并发操作进行检查并提前发现。
+
+需要并发读写时，一般的做法是加锁，但这样性能并不高，Go语言在 1.9 版本中提供了一种效率较高的并发安全的 sync.Map，sync.Map 和 map 不同，不是以语言原生形态提供，而是在 sync 包下的特殊结构。
+
+**sync.Map 有以下特性：**
+
+- 无须初始化，直接声明即可。
+- sync.Map 不能使用 map 的方式进行取值和设置等操作，而是使用 sync.Map 的方法进行调用，Store 表示存储，Load 表示获取，Delete 表示删除。
+- 使用 Range 配合一个回调函数进行遍历操作，通过回调函数返回内部遍历出来的值，Range 参数中回调函数的返回值在需要继续迭代遍历时，返回 true，终止迭代遍历时，返回 false。
+
+并发安全的 sync.Map 代码如下：
+
+```go
+package main
+
+import (
+	"fmt"
+	"sync"
+)
+
+func main()  {
+	var m sync.Map
+	// 将键值对保存到sync.Map
+	m.LoadOrStore("name","tom")
+	m.LoadOrStore("age",10)
+	m.LoadOrStore("high",178)
+
+	// 将键值对保存到sync.Map
+	value, ok := m.Load("name")
+	if !ok {
+		fmt.Println("not found key")
+	}
+	fmt.Printf("name value %s \n",value)
+
+	// 根据键删除对应的键值对
+	m.Delete("name")
+
+	// 遍历所有sync.Map中的键值对
+	m.Range(func(key, value interface{}) bool {
+		fmt.Println( key,value)
+		return true
+	})
+}
+```
+
+运行代码，输出结果：
+
+```shell
+name value : tom 
+age 10
+high 178
+```
+
+sync.Map 没有提供获取 map 数量的方法，替代方法是在获取 sync.Map 时遍历自行计算数量，sync.Map 为了保证并发安全有一些性能损失，因此在非并发情况下，使用 map 相比使用 sync.Map 会有更好的性能。
 
 
 
@@ -6001,7 +6094,7 @@ go mod why         解释为什么需要依赖
 go.mod文件记录了项目所有的依赖信息，其结构大致如下：
 
 ```go
-module github.com/Q1mi/studygo/blogger
+module github.com/tom/studygo/blogger
 
 go 1.12
 
@@ -6331,7 +6424,7 @@ ENTRYPOINT ["./app"]
 
 ## 附带其他文件的部署示例
 
-项目的Github仓库地址为：https://github.com/Q1mi/bubble。
+项目的Github仓库地址为：https://github.com/tom/bubble。
 
 如果项目中带有静态文件或配置文件，需要将其拷贝到最终的镜像文件中。
 
@@ -6419,10 +6512,10 @@ ENTRYPOINT ["/bubble", "conf/config.ini"]
 
 ### 关联其他容器
 
-又因为我们的项目中使用了MySQL，我们可以选择使用如下命令启动一个MySQL容器，它的别名为`mysql8019`；root用户的密码为`root1234`；挂载容器中的`/var/lib/mysql`到本地的`/Users/q1mi/docker/mysql`目录；内部服务端口为3306，映射到外部的13306端口。
+又因为我们的项目中使用了MySQL，我们可以选择使用如下命令启动一个MySQL容器，它的别名为`mysql8019`；root用户的密码为`root1234`；挂载容器中的`/var/lib/mysql`到本地的`/Users/tom/docker/mysql`目录；内部服务端口为3306，映射到外部的13306端口。
 
 ```bash
-docker run --name mysql8019 -p 13306:3306 -e MYSQL_ROOT_PASSWORD=root1234 -v /Users/q1mi/docker/mysql:/var/lib/mysql -d mysql:8.0.19
+docker run --name mysql8019 -p 13306:3306 -e MYSQL_ROOT_PASSWORD=root1234 -v /Users/tom/docker/mysql:/var/lib/mysql -d mysql:8.0.19
 ```
 
 这里需要修改一下我们程序中配置的MySQL的host地址为容器别名，使它们在内部通过别名（此处为mysql8019）联通。
@@ -6569,7 +6662,7 @@ RUN set -eux; \
 docker-compose up
 ```
 
-完整版代码示例，请查看我的github仓库：https://github.com/Q1mi/deploy_bubble_using_docker。
+完整版代码示例，请查看我的github仓库：https://github.com/tom/deploy_bubble_using_docker。
 
 
 
